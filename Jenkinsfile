@@ -3,8 +3,10 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh 'npm install -g yarn'
-                sh 'yarn -v'
+                sh "curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -"
+                sh "echo 'deb https://dl.yarnpkg.com/debian/ stable main' | tee /etc/apt/sources.list.d/yarn.list"
+                sh "apt update && apt install yarn"
+                sh "yarn"
             }
         }
     }
